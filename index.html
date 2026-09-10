@@ -230,7 +230,7 @@
       <div class="fields" id="fields"></div>
       <div class="stats">
         <div class="stat primary"><b id="stat-q">0/3</b><span>Aday hakkında bilinen</span></div>
-        <div class="stat quiet"><b id="stat-time">–</b><span>İlk yanıt süresi</span></div>
+        <div class="stat quiet"><b id="stat-time">–</b><span>Bu demoda yanıt süresi</span></div>
       </div>
       <button class="reset" id="reset">Demoyu baştan başlat</button>
     </aside>
@@ -329,7 +329,7 @@
     }
   };
 
-  var state = { scen: "kurs", step: -1, done: false, t0: 0, answered: 0 };
+  var state = { scen: "kurs", step: -1, done: false, tSent: 0, answered: 0 };
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -355,6 +355,9 @@
     setTimeout(function () {
       chat.removeChild(t);
       addMsg("bot", text);
+      if (state.tSent && statTime.textContent === "–") {
+        statTime.textContent = ((Date.now() - state.tSent) / 1000).toFixed(1).replace(".", ",") + " sn";
+      }
       if (after) after();
     }, reduced ? 60 : 650);
   }
@@ -405,7 +408,7 @@
     setBadge("new", "Yeni aday");
     statTime.textContent = "–";
     statQ.textContent = "0/3";
-    state.t0 = Date.now();
+    state.tSent = 0;
     botSay(scen().greet, function () {
       state.step = 0;
       setChips(curStep().chips);
@@ -442,9 +445,7 @@
     addMsg("user", matched);
     input.value = "";
     setChips([]);
-    if (statTime.textContent === "–") {
-      statTime.textContent = ((Date.now() - state.t0) % 900 / 1000 + 0.4).toFixed(1).replace(".", ",") + " sn";
-    }
+    if (statTime.textContent === "–" && !state.tSent) state.tSent = Date.now();
     var display = matched;
     if (step.free) display = matched.replace(/[^\p{L}\p{N} .'-]/gu, "").trim().slice(0, 40) || "Misafir";
     setField(step.key, display);
