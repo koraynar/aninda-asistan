@@ -229,7 +229,7 @@
       <p class="hint">İşletme sahibinin gördüğü kayıt — sohbet ilerledikçe kendiliğinden dolar.</p>
       <div class="fields" id="fields"></div>
       <div class="stats">
-        <div class="stat primary"><b id="stat-q">0/3</b><span>Aday hakkında bilinen</span></div>
+        <div class="stat primary"><b id="stat-q">0/5</b><span>Aday hakkında bilinen</span></div>
         <div class="stat quiet"><b id="stat-time">–</b><span>Bu demoda yanıt süresi</span></div>
       </div>
       <button class="reset" id="reset">Demoyu baştan başlat</button>
@@ -407,7 +407,7 @@
     renderFields();
     setBadge("new", "Yeni aday");
     statTime.textContent = "–";
-    statQ.textContent = "0/3";
+    statQ.textContent = qualifyCount();
     state.tSent = 0;
     botSay(scen().greet, function () {
       state.step = 0;
@@ -415,12 +415,14 @@
     });
   }
   function qualifyCount() {
-    var n = 0;
-    ["Seviye", "Hizmet", "Uygunluk", "Randevu"].forEach(function (k) {
-      var v = fieldRow(k);
-      if (v && v.classList.contains("filled")) n++;
+    var learned = 0, total = 0;
+    scen().fields.forEach(function (f) {
+      if (f[1]) return;
+      total++;
+      var v = fieldRow(f[0]);
+      if (v && v.classList.contains("filled")) learned++;
     });
-    return Math.min(n, 3);
+    return learned + "/" + total;
   }
   function handleUser(text) {
     if (state.done || state.step < 0) return;
@@ -450,7 +452,7 @@
     if (step.free) display = matched.replace(/[^\p{L}\p{N} .'-]/gu, "").trim().slice(0, 40) || "Misafir";
     setField(step.key, display);
     setBadge("qual", "Nitelendiriliyor");
-    statQ.textContent = qualifyCount() + "/3";
+    statQ.textContent = qualifyCount();
     var replyText = step.reply(display);
     var isLast = state.step === scen().steps.length - 1;
     botSay(replyText, function () {
