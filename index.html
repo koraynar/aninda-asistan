@@ -3,13 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Gelen her müşteri mesajına anında yanıt veren, adayı eleyip randevuya bağlayan yapay zeka asistanı — canlı demo.">
-<meta property="og:title" content="Anında Asistan — canlı demo">
+<meta name="description" content="Gelen her müşteri mesajına doğrudan yanıt veren, adayı eleyip randevuya bağlayan yapay zeka asistanı — etkileşimli simülasyon ve 9 sektör demosu.">
+<meta property="og:title" content="Anında Asistan — Etkileşimli Demo & Sektör Vitrini">
 <meta property="og:description" content="Müşteri rolünde yazın, asistanın adayı nitelendirip randevuya bağlamasını izleyin.">
-<style>*{box-sizing:border-box}html,body{margin:0;padding:0}</style>
-</head>
-<body>
-<title>Anında Asistan</title>
+<title>Anında Asistan — Akıllı Müşteri Asistanı Demosu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
@@ -69,42 +66,53 @@
     color: var(--ink);
     font-family: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
     margin: 0;
-    padding: 24px 16px 48px;
+    padding: 24px 16px 56px;
     line-height: 1.5;
   }
   .wrap { max-width: 980px; margin: 0 auto; }
-  header.top { margin-bottom: 20px; }
+  header.top { margin-bottom: 24px; }
   h1 {
     font-family: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
-    font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem);
-    margin: 0 0 6px; text-wrap: balance;
+    font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin: 0 0 8px; text-wrap: balance;
   }
-  .sub { color: var(--ink-soft); max-width: 60ch; margin: 0; }
+  .sub { color: var(--ink-soft); max-width: 65ch; margin: 0; font-size: 1.05rem; }
   .sim-note {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--accent-soft); color: var(--ink);
     border: 1px solid var(--line); border-radius: 999px;
-    padding: 5px 14px; font-size: 0.8rem; margin-top: 12px;
+    padding: 6px 16px; font-size: 0.82rem; margin-top: 14px;
   }
   .sim-note .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
-  .scenarios { display: flex; gap: 8px; margin: 22px 0 14px; }
+  
+  .section-label {
+    display: inline-block;
+    font: 600 0.76rem "Instrument Sans", sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+
+  .scenarios { display: flex; gap: 8px; margin: 24px 0 16px; flex-wrap: wrap; }
   .scen-btn {
     font: 600 0.85rem "Instrument Sans", system-ui, sans-serif;
     letter-spacing: 0.02em;
     border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
-    border-radius: 999px; padding: 8px 18px; cursor: pointer;
+    border-radius: 999px; padding: 8px 18px; cursor: pointer; transition: all 0.15s ease;
   }
+  .scen-btn:hover { border-color: var(--primary); color: var(--ink); }
   .scen-btn[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
-  .scen-btn:focus-visible, .chip:focus-visible, .send:focus-visible, .reset:focus-visible {
+  .scen-btn:focus-visible, .chip:focus-visible, .send:focus-visible, .reset:focus-visible, .niche-tab:focus-visible {
     outline: 2px solid var(--accent); outline-offset: 2px;
   }
-  .stage { display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: 20px; align-items: start; }
-  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+  .stage { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 24px; align-items: start; }
+  @media (max-width: 780px) { .stage { grid-template-columns: 1fr; } }
 
-  /* Phone */
+  /* Phone Simulator */
   .phone {
     background: var(--surface); border: 1px solid var(--line); border-radius: 26px;
-    overflow: hidden; box-shadow: 0 12px 32px rgba(20, 35, 30, 0.10);
+    overflow: hidden; box-shadow: 0 12px 32px rgba(20, 35, 30, 0.08);
   }
   .phone-head {
     background: var(--primary); color: var(--primary-ink);
@@ -140,7 +148,7 @@
   .chip {
     border: 1px solid var(--primary); color: var(--primary); background: none;
     font: 500 0.82rem "Instrument Sans", system-ui, sans-serif;
-    border-radius: 999px; padding: 6px 13px; cursor: pointer;
+    border-radius: 999px; padding: 6px 13px; cursor: pointer; transition: background 0.15s;
   }
   .chip:hover { background: var(--bubble-user); }
   .inputrow { display: flex; gap: 8px; padding: 10px 12px 14px; background: var(--surface); }
@@ -156,9 +164,9 @@
   }
 
   /* Panel */
-  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px 22px; }
   .panel h2 {
-    font-family: "Bricolage Grotesque", sans-serif; font-size: 1.05rem; font-weight: 600;
+    font-family: "Bricolage Grotesque", sans-serif; font-size: 1.1rem; font-weight: 600;
     margin: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
   .badge {
@@ -175,11 +183,10 @@
   .field .v { font-family: "Spline Sans Mono", ui-monospace, monospace; font-size: 0.84rem; text-align: right; font-variant-numeric: tabular-nums; }
   .field .v.empty { color: var(--ink-soft); }
   .field .v.filled { color: var(--ink); font-weight: 500; }
-  .stats { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .stats { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; align-items: stretch; }
   .stat { flex: 1; min-width: 110px; background: var(--surface-2); border-radius: 12px; padding: 10px 12px; }
   .stat b { font-family: "Spline Sans Mono", ui-monospace, monospace; font-size: 1.05rem; display: block; font-variant-numeric: tabular-nums; }
   .stat span { font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.03em; text-transform: uppercase; }
-  .stats { align-items: stretch; }
   .stat.primary { flex: 2 1 190px; background: var(--ok-soft); border: 1px solid var(--ok); }
   .stat.primary b { font-size: 1.6rem; color: var(--ok); line-height: 1.15; }
   .stat.primary span { color: var(--ok); opacity: .85; }
@@ -191,23 +198,209 @@
     border-radius: 10px; padding: 9px; font: 500 0.85rem "Instrument Sans", sans-serif; cursor: pointer;
   }
   .reset:hover { color: var(--ink); border-color: var(--ink-soft); }
-  .how { margin-top: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 22px; }
-  .how h2 { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.05rem; margin: 0 0 8px; }
-  .how ol { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 0.9rem; display: grid; gap: 6px; }
+
+  /* 9-Niche Video Showcase Section */
+  .showcase-section {
+    margin-top: 48px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 28px 24px;
+  }
+  .showcase-header h2 {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 4px 0 6px;
+  }
+  .showcase-header p {
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+  }
+
+  .niche-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    scrollbar-width: thin;
+  }
+  .niche-tab {
+    font: 600 0.82rem "Instrument Sans", sans-serif;
+    border: 1px solid var(--line);
+    background: var(--ground);
+    color: var(--ink-soft);
+    border-radius: 999px;
+    padding: 7px 16px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .niche-tab:hover {
+    color: var(--ink);
+    border-color: var(--ink-soft);
+  }
+  .niche-tab[aria-selected="true"] {
+    background: var(--primary);
+    color: var(--primary-ink);
+    border-color: var(--primary);
+  }
+
+  .niche-stage {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .niche-stage { grid-template-columns: 1fr; }
+  }
+
+  .video-container {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(20, 35, 30, 0.12);
+    border: 1px solid var(--line);
+  }
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .niche-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .niche-tag-badge {
+    display: inline-block;
+    font: 600 0.72rem "Instrument Sans", sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: var(--bubble-user);
+    padding: 4px 10px;
+    border-radius: 6px;
+    align-self: flex-start;
+  }
+  .niche-title {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  .niche-desc {
+    color: var(--ink-soft);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .flow-steps {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+    display: grid;
+    gap: 10px;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  .flow-step strong {
+    color: var(--ink);
+  }
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--ink);
+    font: 600 0.75rem "Spline Sans Mono", monospace;
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+  .payoff-callout {
+    background: var(--ok-soft);
+    border-left: 3px solid var(--ok);
+    padding: 10px 14px;
+    border-radius: 4px 8px 8px 4px;
+    font-size: 0.85rem;
+    color: var(--ok);
+    font-weight: 500;
+  }
+
+  /* How It Works & CTA */
+  .how { margin-top: 36px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; }
+  .how h2 { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.15rem; margin: 0 0 10px; }
+  .how ol { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 0.9rem; display: grid; gap: 8px; }
   .how ol b { color: var(--ink); font-weight: 600; }
-  footer { margin-top: 22px; color: var(--ink-soft); font-size: 0.8rem; text-align: center; }
+
+  .cta-box {
+    margin-top: 36px;
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+  }
+  .cta-box h3 {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 1.25rem;
+    margin: 0 0 6px;
+  }
+  .cta-box p {
+    color: var(--ink-soft);
+    max-width: 50ch;
+    margin: 0 auto 16px;
+    font-size: 0.9rem;
+  }
+  .cta-link {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 10px 24px;
+    border-radius: 999px;
+    transition: opacity 0.15s;
+  }
+  .cta-link:hover { opacity: 0.9; }
+
+  footer { margin-top: 32px; color: var(--ink-soft); font-size: 0.82rem; text-align: center; }
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="top">
+    <span class="section-label">Etkileşimli Simülasyon</span>
     <h1>Anında Asistan</h1>
-    <p class="sub">Gelen her müşteri adayına saniyeler içinde yanıt veren, doğru soruları sorup randevuya bağlayan yapay zeka asistanı. Aşağıda müşteri rolünde siz yazın — sağda işletme sahibinin gördüğü kayıt aynı anda dolsun.</p>
-    <span class="sim-note"><span class="dot"></span>Bu sayfa bir simülasyon demosudur — canlı kurulumda yanıtları Claude (yapay zeka) üretir ve serbest yazışmayı anlar.</span>
+    <p class="sub">Gelen müşteri mesajlarına doğrudan yanıt veren, doğru soruları sorup randevuya bağlayan yapay zeka asistanı. Sol tarafta müşteri rolünde siz yazın — sağda işletme sahibinin gördüğü kayıt aynı anda dolsun.</p>
+    <div class="sim-note">
+      <span class="dot"></span>
+      Bu sayfa bir simülasyon demosudur — canlı kurulumda yanıtları Claude (yapay zeka) üretir ve serbest yazışmayı anlar.
+    </div>
   </header>
 
   <div class="scenarios" role="group" aria-label="Senaryo seçimi">
     <button class="scen-btn" id="scen-kurs" aria-pressed="true">Dil Kursu</button>
     <button class="scen-btn" id="scen-klinik" aria-pressed="false">Diş Kliniği</button>
+    <button class="scen-btn" id="scen-emlak" aria-pressed="false">Emlak Ofisi</button>
+    <button class="scen-btn" id="scen-salon" aria-pressed="false">Kuaför & Salon</button>
+    <button class="scen-btn" id="scen-restoran" aria-pressed="false">Restoran</button>
+    <button class="scen-btn" id="scen-oto" aria-pressed="false">Oto Servis</button>
   </div>
 
   <div class="stage">
@@ -236,6 +429,48 @@
     </aside>
   </div>
 
+  <!-- 9-Niche Video Showcase Section -->
+  <section class="showcase-section" aria-label="Sektör Vitrini">
+    <div class="showcase-header">
+      <span class="section-label">Sektörel Örnekler</span>
+      <h2>9 Farklı Sektör İçin Örnek Sohbet Akışları</h2>
+      <p>Yapay zeka asistanının farklı sektörlerde randevu, rezervasyon ve takip süreçlerini nasıl yönettiğini izleyin (Örnek simülasyon video kayıtları).</p>
+    </div>
+
+    <div class="niche-nav" role="tablist" aria-label="Sektör seçimi">
+      <button class="niche-tab" role="tab" aria-selected="true" data-niche="kurs">Dil Kursu</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="klinik">Diş Kliniği</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="emlak">Emlak</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="salon">Kuaför & Salon</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="restoran">Restoran</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="oto">Oto Servis</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="pilates">Pilates</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="eticaret">E-Ticaret</button>
+      <button class="niche-tab" role="tab" aria-selected="false" data-niche="danismanlik">B2B Danışmanlık</button>
+    </div>
+
+    <div class="niche-stage">
+      <div class="video-container">
+        <video id="niche-video" controls preload="none" poster="assets/posters/poster_kurs.jpg">
+          <source id="niche-video-src" src="assets/videos/video_kurs.mp4" type="video/mp4">
+          Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+      </div>
+
+      <div class="niche-info" id="niche-info">
+        <span class="niche-tag-badge" id="info-tag">EĞİTİM & DİL KURSU</span>
+        <h3 class="niche-title" id="info-title">Ada Dil Kursu • Seviye Tespiti & Danışmanlık</h3>
+        <p class="niche-desc" id="info-desc">İngilizce seviye tespiti randevusu ayarlar, hedef ve şube tercihlerini sınıflandırıp eğitim danışmanına aktarır.</p>
+        <ul class="flow-steps" id="info-steps">
+          <li class="flow-step"><span class="step-num">1</span><div><strong>İhtiyaç Belirleme:</strong> Genel, akademik veya konuşma hedefini öğrenir.</div></li>
+          <li class="flow-step"><span class="step-num">2</span><div><strong>Uygun Saat Seçimi:</strong> Hafta içi/sonu müsait kontenjanları sunar.</div></li>
+          <li class="flow-step"><span class="step-num">3</span><div><strong>Onay Kartı:</strong> Şube, tarih ve aday adıyla onay kartı oluşturur.</div></li>
+        </ul>
+        <div class="payoff-callout" id="info-payoff">✓ Sonuç: Randevu özeti danışman paneline kaydedildi.</div>
+      </div>
+    </div>
+  </section>
+
   <section class="how">
     <h2>Canlı kurulumda ne değişir?</h2>
     <ol>
@@ -245,12 +480,22 @@
     </ol>
   </section>
 
-  <footer>Koray Nar · Yapay zeka otomasyon kurulumları · Bu demo hiçbir veriyi kaydetmez</footer>
+  <div class="cta-box">
+    <h3>İşletmeniz İçin Özel Kurulum</h3>
+    <p>Sektörünüze özel sohbet akışları, takvim entegrasyonu ve teslimat detayları için Contra üzerinden iletişime geçebilirsiniz.</p>
+    <a href="https://contra.com/koray_nar_jcdw8k41" target="_blank" rel="noopener" class="cta-link">Contra Profilini İncele & İletişime Geç</a>
+  </div>
+
+  <footer>
+    Koray Nar • Meta Grup • Bu demo hiçbir kişisel veriyi kaydetmez.
+  </footer>
 </div>
 
 <script>
 (function () {
   "use strict";
+
+  // --- Interactive Chat Simulator Logic ---
   var chat = document.getElementById("chat");
   var chipsEl = document.getElementById("chips");
   var form = document.getElementById("form");
@@ -286,11 +531,16 @@
         { key: "Uygunluk", chips: ["Hafta içi akşam", "Hafta sonu"],
           reply: function (c) {
             return c === "Hafta sonu"
-              ? "Süper. Bu hafta sonu için iki boş kontenjan var:\nCumartesi 11:00 · Pazar 14:00\nHangisi uygun?"
-              : "Süper. Bu hafta için iki boş kontenjan var:\nÇarşamba 19:00 · Perşembe 19:30\nHangisi uygun?";
+              ? "Süper. Bu hafta sonu için iki boş kontenjanımız var:\nCumartesi 11:00 · Pazar 14:00\nHangisi size uygun?"
+              : "Süper. Bu hafta içi için iki boş kontenjanımız var:\nÇarşamba 19:00 · Perşembe 19:30\nHangisi size uygun?";
           } },
-        { key: "Randevu", chips: ["Çarşamba 19:00", "Perşembe 19:30", "Cumartesi 11:00", "Pazar 14:00"],
-          reply: function (c) { return c + " için yerinizi ayırıyorum. Son olarak adınızı alabilir miyim?"; } },
+        { key: "Randevu",
+          chips: function (ans) {
+            return (ans["Uygunluk"] || "") === "Hafta sonu"
+              ? ["Cumartesi 11:00", "Pazar 14:00"]
+              : ["Çarşamba 19:00", "Perşembe 19:30"];
+          },
+          reply: function (c) { return c + " için yerinizi ayırıyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
           reply: function (c) {
             return "Teşekkürler " + c + "! ✅ Deneme dersiniz ayarlandı. Ders günü saat başında size hatırlatma mesajı göndereceğim. Görüşmek üzere!";
@@ -305,31 +555,164 @@
       ],
       greet: "Merhaba! 🦷 Dent Nova Klinik'e hoş geldiniz. Size nasıl yardımcı olabilirim?",
       steps: [
-        { key: "Talep", chips: ["Fiyat bilgisi almak istiyorum", "Randevu almak istiyorum", "Dişim ağrıyor"],
+        { key: "Talep", chips: ["Randevu almak istiyorum", "Fiyat bilgisi almak istiyorum", "Dişim ağrıyor"],
           reply: function (c) {
-            if (c.indexOf("ağrıyor") > -1) return "Geçmiş olsun! Sizi en kısa sürede hekimlerimizden birine yönlendirelim. Hangi konuda destek istersiniz?";
-            if (c.indexOf("Fiyat") > -1) return "Elbette — fiyat işleme göre değişiyor, muayene sonrası net teklif veriyoruz; ilk muayene ücretsiz. Hangi hizmetle ilgileniyorsunuz?";
-            return "Elbette, hemen ayarlayalım. Hangi hizmetle ilgileniyorsunuz?";
+            if (c.indexOf("ağrıyor") > -1) return "Geçmiş olsun! Sizi en kısa sürede hekimlerimize yönlendirelim. Hangi konuda destek istersiniz?";
+            if (c.indexOf("Fiyat") > -1) return "Elbette — muayene sonrası net tedavi planı veriyoruz; ilk muayene ücretsizdir. Hangi hizmetle ilgileniyorsunuz?";
+            return "Elbette, hemen randevunuzu planlayalım. Hangi hizmetle ilgileniyorsunuz?";
           } },
         { key: "Hizmet", chips: ["Diş beyazlatma", "İmplant", "Genel kontrol"],
-          reply: function (c) { return c + " için ilk muayene ücretsizdir. Hangi zamanlar size uyar?"; } },
+          reply: function (c) { return c + " için muayene randevusu oluşturalım. Hangi zamanlar size uyar?"; } },
         { key: "Uygunluk", chips: ["Hafta içi gündüz", "Hafta içi akşam", "Cumartesi"],
           reply: function (c) {
-            return c === "Cumartesi"
-              ? "Cumartesi için boş saatlerimiz:\n10:30 · 15:00\nHangisi uygun?"
-              : "Bu hafta için boş saatlerimiz:\nSalı 14:00 · Cuma 17:30\nHangisi uygun?";
+            if (c === "Cumartesi") return "Cumartesi günü için boş saatlerimiz:\nCumartesi 10:30 · Cumartesi 15:00\nHangisi uygun?";
+            if (c === "Hafta içi akşam") return "Bu hafta içi akşam için boş saatlerimiz:\nÇarşamba 18:30 · Cuma 19:00\nHangisi uygun?";
+            return "Bu hafta içi gündüz için boş saatlerimiz:\nSalı 14:00 · Perşembe 11:30\nHangisi uygun?";
           } },
-        { key: "Randevu", chips: ["Salı 14:00", "Cuma 17:30", "Cumartesi 10:30", "Cumartesi 15:00"],
-          reply: function (c) { return c + " için randevunuzu oluşturuyorum. Son olarak adınızı alabilir miyim?"; } },
+        { key: "Randevu",
+          chips: function (ans) {
+            var u = ans["Uygunluk"] || "";
+            if (u === "Cumartesi") return ["Cumartesi 10:30", "Cumartesi 15:00"];
+            if (u === "Hafta içi akşam") return ["Çarşamba 18:30", "Cuma 19:00"];
+            return ["Salı 14:00", "Perşembe 11:30"];
+          },
+          reply: function (c) { return c + " için randevunuzu oluşturuyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
           reply: function (c) {
             return "Teşekkürler " + c + "! ✅ Randevunuz oluşturuldu. Randevunuzdan bir gün önce hatırlatma mesajı göndereceğim. Sağlıklı günler!";
           } }
       ]
+    },
+    emlak: {
+      biz: "Nova Gayrimenkul", av: "N",
+      fields: [
+        ["Kaynak", "Web Formu"], ["Talep", ""], ["Bölge", ""],
+        ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
+      ],
+      greet: "Merhaba! 🏢 Nova Gayrimenkul'e hoş geldiniz. Size nasıl yardımcı olabilirim?",
+      steps: [
+        { key: "Talep", chips: ["Satılık 3+1 daire", "Kiralık daire", "Fiyat değerlendirmesi & ekspertiz"],
+          reply: function (c) {
+            if (c.indexOf("değerlendirmesi") > -1) {
+              return "Mülkünüzün güncel piyasa değerlemesi ve ekspertiz analizi için danışmanımız yardımcı olacaktır. Gayrimenkulünüz hangi bölgede?";
+            }
+            return c + " arayışınız için geniş bir portföyümüz var. Hangi bölge veya semti düşünüyorsunuz?";
+          } },
+        { key: "Bölge", chips: ["Ataşehir & Çevresi", "Kadıköy Merkez", "Bağdat Caddesi"],
+          reply: function (c, ans) {
+            var isVal = (ans["Talep"] || "").indexOf("değerlendirmesi") > -1;
+            return c + " bölgesinde " + (isVal ? "uzman danışmanımızla yerinde değerleme randevusu" : "kriterlerinize uygun portföy sunumu") + " için hangi gün müsaitsiniz?";
+          } },
+        { key: "Uygunluk", chips: ["Hafta içi", "Cumartesi", "Pazar"],
+          reply: function (c) {
+            if (c === "Hafta içi") return "Hafta içi için uygun saatlerimiz:\nPerşembe 14:00 · Cuma 16:30\nHangisi size uyar?";
+            if (c === "Pazar") return "Pazar günü için danışmanımızın müsait saatleri:\nPazar 13:00 · Pazar 15:30\nHangisi size uyar?";
+            return "Cumartesi için uygun yer gösterme saatlerimiz:\nCumartesi 14:00 · Cumartesi 16:30\nHangisi size uyar?";
+          } },
+        { key: "Randevu",
+          chips: function (ans) {
+            var u = ans["Uygunluk"] || "";
+            if (u === "Hafta içi") return ["Perşembe 14:00", "Cuma 16:30"];
+            if (u === "Pazar") return ["Pazar 13:00", "Pazar 15:30"];
+            return ["Cumartesi 14:00", "Cumartesi 16:30"];
+          },
+          reply: function (c) { return c + " randevusu için yerinizi ayırtıyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+        { key: "Ad", chips: [], free: true,
+          reply: function (c) { return "Teşekkürler " + c + "! ✅ Bölge danışmanımız randevu saatinde sizi adreste karşılayacak. Bilgiler takvime işlendi."; } }
+      ]
+    },
+    salon: {
+      biz: "Aura Saç & Güzellik", av: "S",
+      fields: [
+        ["Kaynak", "WhatsApp"], ["Hizmet", ""], ["Uzman", ""],
+        ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
+      ],
+      greet: "Merhaba! ✨ Aura Saç & Güzellik salonumuza hoş geldiniz. Hangi hizmet için randevu almak istersiniz?",
+      steps: [
+        { key: "Hizmet", chips: ["Saç Kesimi & Bakım", "Renklendirme / Balyaj", "Manikür & Pedikür"],
+          reply: function (c) { return c + " işlemi için uzman ekibimizle yardımcı olmaktan mutluluk duyarız. Tercih ettiğiniz özel bir uzmanımız var mı?"; } },
+        { key: "Uzman", chips: ["Fark etmez / İlk uygun", "Baş Kuaför"],
+          reply: function (c) {
+            var note = c.indexOf("Baş Kuaför") > -1 ? "Baş kuaförümüz için " : "İlk uygun uzmanımız için ";
+            return note + "Cuma veya Cumartesi için randevu planlayabiliriz. Hangi gün sizin için uygun?";
+          } },
+        { key: "Uygunluk", chips: ["Cuma", "Cumartesi"],
+          reply: function (c) {
+            if (c === "Cuma") return "Cuma günü için uygun saatlerimiz:\nCuma 14:00 · Cuma 16:30\nHangisi size uyar?";
+            return "Cumartesi günü için uygun saatlerimiz:\nCumartesi 11:00 · Cumartesi 15:30\nHangisi size uyar?";
+          } },
+        { key: "Randevu",
+          chips: function (ans) {
+            return (ans["Uygunluk"] || "") === "Cuma"
+              ? ["Cuma 14:00", "Cuma 16:30"]
+              : ["Cumartesi 11:00", "Cumartesi 15:30"];
+          },
+          reply: function (c) { return c + " randevunuzu ayırıyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+        { key: "Ad", chips: [], free: true,
+          reply: function (c) { return "Harika " + c + "! ✅ Randevunuz salon takvimine işlendi. Randevu gününde görüşmek üzere!"; } }
+      ]
+    },
+    restoran: {
+      biz: "Bistro Lumière", av: "B",
+      fields: [
+        ["Kaynak", "Instagram"], ["Tarih", ""], ["Kişi Sayısı", ""],
+        ["Alan", ""], ["Saat", ""], ["Ad", ""]
+      ],
+      greet: "İyi günler! 🍷 Bistro Lumière'e hoş geldiniz. Bu akşam veya hafta sonu için masa ayırtmak ister misiniz?",
+      steps: [
+        { key: "Tarih", chips: ["Bu akşam", "Yarın akşam", "Cumartesi"],
+          reply: function (c) { return c + " için kaç kişilik bir masa hazırlayalım?"; } },
+        { key: "Kişi Sayısı", chips: ["2 Kişi", "4 Kişi", "6+ Kişi"],
+          reply: function (c) { return c + " için salonumuzda ve terasımızda yerimiz var. Hangi alanı tercih edersiniz?"; } },
+        { key: "Alan", chips: ["Teras Masa", "İç Salon", "Fark etmez"],
+          reply: function (c, ans) {
+            return c + " tercihinize göre " + (ans["Tarih"] || "seçtiğiniz gün") + " için uygun saatlerimiz: 19:30 veya 20:30. Hangisini rezerve edelim?";
+          } },
+        { key: "Saat", chips: ["19:30", "20:30"],
+          reply: function (c) { return c + " rezervasyonu için son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+        { key: "Ad", chips: [], free: true,
+          reply: function (c) { return "Mükemmel " + c + "! ✅ Masanız rezerve edildi. Kodunuz: #BL-8420. Görüşmek üzere!"; } }
+      ]
+    },
+    oto: {
+      biz: "Mobilis Oto Servis", av: "M",
+      fields: [
+        ["Kaynak", "WhatsApp"], ["Talep", ""], ["Araç", ""],
+        ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
+      ],
+      greet: "Merhaba! 🔧 Mobilis Oto Servis'e hoş geldiniz. Aracınız için periyodik bakım veya servis kabul kaydı mı oluşturmak istersiniz?",
+      steps: [
+        { key: "Talep", chips: ["Periyodik Bakım", "Fren & Balata Kontrolü", "Arıza Tespiti"],
+          reply: function (c) { return c + " için servis randevusu planlayalım. Aracınızın marka ve modelini öğrenebilir miyim?"; } },
+        { key: "Araç", chips: ["Volkswagen Golf", "Renault Megane", "Diğer / Özel"],
+          reply: function (c, ans) {
+            var talep = ans["Talep"] || "servis kabul";
+            var sure = "yaklaşık 2 saattir.";
+            if (talep === "Fren & Balata Kontrolü") sure = "ortalama 1 saattir.";
+            if (talep === "Arıza Tespiti") sure = "yaklaşık 45 dakikadır.";
+            return c + " için " + talep.toLowerCase() + " servis süremiz " + sure + " Hangi gün servisimize bırakmak istersiniz?";
+          } },
+        { key: "Uygunluk", chips: ["Perşembe", "Cuma", "Cumartesi"],
+          reply: function (c) {
+            if (c === "Perşembe") return "Perşembe günü servis kabul saatlerimiz:\nPerşembe 09:30 · Perşembe 14:00\nHangisi size uyar?";
+            if (c === "Cuma") return "Cuma günü servis kabul saatlerimiz:\nCuma 09:30 · Cuma 15:30\nHangisi size uyar?";
+            return "Cumartesi günü servis kabul saatlerimiz:\nCumartesi 10:00 · Cumartesi 12:30\nHangisi size uyar?";
+          } },
+        { key: "Randevu",
+          chips: function (ans) {
+            var u = ans["Uygunluk"] || "";
+            if (u === "Perşembe") return ["Perşembe 09:30", "Perşembe 14:00"];
+            if (u === "Cuma") return ["Cuma 09:30", "Cuma 15:30"];
+            return ["Cumartesi 10:00", "Cumartesi 12:30"];
+          },
+          reply: function (c) { return c + " servis kabulü için adınızı ve soyadınızı alabilir miyim?"; } },
+        { key: "Ad", chips: [], free: true,
+          reply: function (c) { return "Teşekkürler " + c + "! ✅ Servis kabul randevunuz oluşturuldu. Randevu saatinde servis danışmanımız sizi bekliyor olacak."; } }
+      ]
     }
   };
 
-  var state = { scen: "kurs", step: -1, done: false, tSent: 0, answered: 0 };
+  var state = { scen: "kurs", step: -1, done: false, tSent: 0, answers: {} };
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -353,17 +736,22 @@
     chat.appendChild(t);
     chat.scrollTop = chat.scrollHeight;
     setTimeout(function () {
-      chat.removeChild(t);
+      if (t.parentNode) chat.removeChild(t);
       addMsg("bot", text);
       if (state.tSent && statTime.textContent === "–") {
         statTime.textContent = ((Date.now() - state.tSent) / 1000).toFixed(1).replace(".", ",") + " sn";
       }
       if (after) after();
-    }, reduced ? 60 : 650);
+    }, reduced ? 60 : 600);
+  }
+  function getChips(s) {
+    if (!s) return [];
+    if (typeof s.chips === "function") return s.chips(state.answers || {});
+    return s.chips || [];
   }
   function setChips(list) {
     chipsEl.textContent = "";
-    list.forEach(function (c) {
+    (list || []).forEach(function (c) {
       var b = el("button", "chip", c);
       b.type = "button";
       b.addEventListener("click", function () { handleUser(c); });
@@ -398,12 +786,16 @@
     });
   }
   function start(which) {
-    state.scen = which; state.step = -1; state.done = false; state.answered = 0;
+    state.scen = which; state.step = -1; state.done = false; state.answers = {};
     chat.textContent = ""; input.value = "";
     bizName.textContent = scen().biz;
     avatar.textContent = scen().av;
-    document.getElementById("scen-kurs").setAttribute("aria-pressed", which === "kurs" ? "true" : "false");
-    document.getElementById("scen-klinik").setAttribute("aria-pressed", which === "klinik" ? "true" : "false");
+    
+    var buttons = document.querySelectorAll(".scen-btn");
+    buttons.forEach(function(b) {
+      b.setAttribute("aria-pressed", b.id === "scen-" + which ? "true" : "false");
+    });
+
     renderFields();
     setBadge("new", "Yeni aday");
     statTime.textContent = "–";
@@ -411,7 +803,7 @@
     state.tSent = 0;
     botSay(scen().greet, function () {
       state.step = 0;
-      setChips(curStep().chips);
+      setChips(getChips(curStep()));
     });
   }
   function qualifyCount() {
@@ -427,18 +819,30 @@
   function handleUser(text) {
     if (state.done || state.step < 0) return;
     var step = curStep();
+    var chipList = getChips(step);
     var matched = text;
     if (!step.free) {
       var hit = null;
-      step.chips.forEach(function (c) {
-        if (c.toLowerCase() === text.toLowerCase() ||
-            text.toLowerCase().indexOf(c.toLowerCase().split(" ")[0]) > -1) hit = hit || c;
-      });
+      for (var ci = 0; ci < chipList.length; ci++) {
+        if (chipList[ci].toLowerCase() === text.toLowerCase()) {
+          hit = chipList[ci];
+          break;
+        }
+      }
+      if (!hit) {
+        for (var cj = 0; cj < chipList.length; cj++) {
+          if (text.toLowerCase().indexOf(chipList[cj].toLowerCase()) > -1 ||
+              chipList[cj].toLowerCase().indexOf(text.toLowerCase()) > -1) {
+            hit = chipList[cj];
+            break;
+          }
+        }
+      }
       if (!hit) {
         addMsg("user", text);
         input.value = "";
         botSay("Canlı kurulumda bunu yapay zeka serbestçe anlar 🙂 Demoda seçeneklerden ilerleyelim:", function () {
-          setChips(step.chips);
+          setChips(chipList);
         });
         return;
       }
@@ -450,10 +854,11 @@
     if (statTime.textContent === "–" && !state.tSent) state.tSent = Date.now();
     var display = matched;
     if (step.free) display = matched.replace(/[^\p{L}\p{N} .'-]/gu, "").trim().slice(0, 40) || "Misafir";
+    state.answers[step.key] = display;
     setField(step.key, display);
     setBadge("qual", "Nitelendiriliyor");
     statQ.textContent = qualifyCount();
-    var replyText = step.reply(display);
+    var replyText = step.reply(display, state.answers);
     var isLast = state.step === scen().steps.length - 1;
     botSay(replyText, function () {
       if (isLast) {
@@ -464,7 +869,7 @@
       }
       state.step += 1;
       var next = curStep();
-      setChips(next.chips);
+      setChips(getChips(next));
       if (next.free) input.focus();
     });
   }
@@ -473,10 +878,177 @@
     var t = input.value.trim();
     if (t) handleUser(t);
   });
-  document.getElementById("scen-kurs").addEventListener("click", function () { start("kurs"); });
-  document.getElementById("scen-klinik").addEventListener("click", function () { start("klinik"); });
+  
+  ["kurs", "klinik", "emlak", "salon", "restoran", "oto"].forEach(function(k) {
+    var btn = document.getElementById("scen-" + k);
+    if (btn) btn.addEventListener("click", function () { start(k); });
+  });
   document.getElementById("reset").addEventListener("click", function () { start(state.scen); });
   start("kurs");
+
+  // --- 9-Niche Video Showcase Tab Switching ---
+  var NICHE_DATA = {
+    kurs: {
+      tag: "EĞİTİM & DİL KURSU",
+      title: "Ada Dil Kursu • Seviye Tespiti & Danışmanlık",
+      desc: "İngilizce seviye tespiti randevusu ayarlar, hedef ve şube tercihlerini sınıflandırıp eğitim danışmanına aktarır.",
+      steps: [
+        "<strong>İhtiyaç Belirleme:</strong> Genel, akademik veya konuşma hedefini öğrenir.",
+        "<strong>Uygun Saat Seçimi:</strong> Hafta içi/sonu müsait kontenjanları sunar.",
+        "<strong>Onay Kartı:</strong> Şube, tarih ve aday adıyla onay kartı oluşturur."
+      ],
+      payoff: "✓ Sonuç: Randevu özeti danışman paneline kaydedildi.",
+      video: "assets/videos/video_kurs.mp4",
+      poster: "assets/posters/poster_kurs.jpg"
+    },
+    klinik: {
+      tag: "KLİNİK & DİŞ SAĞLIĞI",
+      title: "Dent Nova Klinik • Muayene Randevusu",
+      desc: "Hasta talebini alır, hekim takvimine göre uygun saatte randevu oluşturur.",
+      steps: [
+        "<strong>Talep Belirleme:</strong> Muayene veya bakım ihtiyacını netleştirir.",
+        "<strong>Hekim Takvimi:</strong> Tercih edilen gün ve saate göre uygun seansı eşler.",
+        "<strong>Klinik Bildirimi:</strong> Randevu kodunu hastaya iletip hekim paneline işler."
+      ],
+      payoff: "✓ Sonuç: Randevu talebi hekim paneline iletildi.",
+      video: "assets/videos/video_klinik.mp4",
+      poster: "assets/posters/poster_klinik.jpg"
+    },
+    emlak: {
+      tag: "GAYRİMENKUL & EMLAK",
+      title: "Nova Gayrimenkul • Portföy & Yer Gösterme",
+      desc: "Bölge, oda sayısı ve site kriterlerini toplar; daire görselini sunup yer gösterme ziyareti planlar.",
+      steps: [
+        "<strong>Kriter Belirleme:</strong> Semt ve oda tercihlerini filtreler.",
+        "<strong>Görsel Portföy:</strong> Kriterlere uyan ilan kartını görseliyle iletir.",
+        "<strong>Danışman Eşleşmesi:</strong> Yer gösterme saatini bölge danışmanına bağlar."
+      ],
+      payoff: "✓ Sonuç: Yer gösterme randevusu danışmana iletildi.",
+      video: "assets/videos/video_emlak.mp4",
+      poster: "assets/posters/poster_emlak.jpg"
+    },
+    salon: {
+      tag: "GÜZELLİK & KUAFÖR SALONU",
+      title: "Aura Saç & Güzellik • Takip Mesajı & Randevu",
+      desc: "Yanıtsız kalan talepleri ertesi gün nazikçe takip ederek randevuya dönüştürür.",
+      steps: [
+        "<strong>Hizmet Karşılama:</strong> Kesim, renklendirme veya bakım talebini alır.",
+        "<strong>Takip Mesajı:</strong> Yanıtsız kalan adaylara ertesi gün boş saatleri hatırlatır.",
+        "<strong>Takvim Kaydı:</strong> Teyit edilen randevuyu salon ajandasına ekler."
+      ],
+      payoff: "✓ Sonuç: Takip mesajıyla randevu takvime eklendi.",
+      video: "assets/videos/video_salon.mp4",
+      poster: "assets/posters/poster_salon.jpg"
+    },
+    restoran: {
+      tag: "RESTORAN & GASTRONOMİ",
+      title: "Bistro Lumière • Masa Rezervasyonu & Menü",
+      desc: "Kişi sayısı, alan tercihi ve saate göre masa rezervasyonu yapar; gelmeden önce şef menüsünü sunar.",
+      steps: [
+        "<strong>Masa Uygunluğu:</strong> Kişi sayısı ve teras/salon tercihini teyit eder.",
+        "<strong>Rezervasyon Kartı:</strong> Saat ve masa numarası içeren onay kartı iletir.",
+        "<strong>Menü Gösterimi:</strong> Müşteri isteğine göre tadım menüsünü paylaşır."
+      ],
+      payoff: "✓ Sonuç: Rezervasyon kodu oluşturuldu ve takvime kaydedildi.",
+      video: "assets/videos/video_restoran.mp4",
+      poster: "assets/posters/poster_restoran.jpg"
+    },
+    oto: {
+      tag: "OTO SERVİS & BAKIM",
+      title: "Mobilis Oto Servis • Periyodik Bakım",
+      desc: "Araç marka, model ve kilometre bilgilerini alarak atölye kabul randevusu oluşturur.",
+      steps: [
+        "<strong>Araç Bilgisi:</strong> Model ve kilometreye göre bakım kapsamını belirler.",
+        "<strong>Atölye Kabulü:</strong> Servisin müsait kabul saatlerini filtreler.",
+        "<strong>Kabul Bildirimi:</strong> Randevu kodunu müşteriye ve servis paneline iletir."
+      ],
+      payoff: "✓ Sonuç: Servis randevusu atölye planına eklendi.",
+      video: "assets/videos/video_oto.mp4",
+      poster: "assets/posters/poster_oto.jpg"
+    },
+    pilates: {
+      tag: "PİLATES & STÜDYO",
+      title: "Forma Pilates • Birebir Deneme Seansı",
+      desc: "Reformer veya mat hedefini öğrenir, seviyeye uygun eğitmenle tanışma dersi planlar.",
+      steps: [
+        "<strong>Branş Seçimi:</strong> Reformer veya pilates amacını sınıflandırır.",
+        "<strong>Seans Saatleri:</strong> Eğitmenin müsait seans aralıklarını listeler.",
+        "<strong>Eğitmen Takvimi:</strong> Katılımcı profilini eğitmen paneline kaydeder."
+      ],
+      payoff: "✓ Sonuç: Deneme seansı eğitmen ajandasına işlendi.",
+      video: "assets/videos/video_pilates.mp4",
+      poster: "assets/posters/poster_pilates.jpg"
+    },
+    eticaret: {
+      tag: "E-TİCARET DESTEK",
+      title: "NovaStore • Sipariş & Kargo Takibi",
+      desc: "Sipariş numarasıyla kargo durumu ve tahmini teslimat gününü sorgular, kurye teslimat notu alır.",
+      steps: [
+        "<strong>Sipariş Sorgusu:</strong> Kargo takip kodunu entegrasyondan sorgular.",
+        "<strong>Kurye Notu:</strong> Resepsiyona bırakma veya komşu teslimat notu alır.",
+        "<strong>Müşteri Teyidi:</strong> Teslimat detaylarını panele kaydeder."
+      ],
+      payoff: "✓ Sonuç: Teslimat notu kurye sistemine iletildi.",
+      video: "assets/videos/video_eticaret.mp4",
+      poster: "assets/posters/poster_eticaret.jpg"
+    },
+    danismanlik: {
+      tag: "KURUMSAL AI ASİSTANI",
+      title: "Meta Grup AI • Talep Nitelendirme",
+      desc: "Müşteri adayının hedeflerini, talep hacmini ve CRM altyapısını sınıflandırıp ön görüşme planlar.",
+      steps: [
+        "<strong>Hedef Analizi:</strong> Hedef, talep hacmi ve CRM altyapısını sorgular.",
+        "<strong>Toplantı Planlama:</strong> Danışmanın uygun saatlerine ön görüşme ayarlar.",
+        "<strong>Ekip Bildirimi:</strong> Nitelikli görüşme kaydını satış ekibine aktarır."
+      ],
+      payoff: "✓ Sonuç: Nitelikli talep özeti CRM paneline aktarıldı.",
+      video: "assets/videos/video_danismanlik.mp4",
+      poster: "assets/posters/poster_danismanlik.jpg"
+    }
+  };
+
+  var nicheTabs = document.querySelectorAll(".niche-tab");
+  var nicheVideo = document.getElementById("niche-video");
+  var nicheVideoSrc = document.getElementById("niche-video-src");
+  var infoTag = document.getElementById("info-tag");
+  var infoTitle = document.getElementById("info-title");
+  var infoDesc = document.getElementById("info-desc");
+  var infoSteps = document.getElementById("info-steps");
+  var infoPayoff = document.getElementById("info-payoff");
+
+  function switchNiche(key) {
+    var data = NICHE_DATA[key];
+    if (!data) return;
+
+    nicheTabs.forEach(function (tab) {
+      tab.setAttribute("aria-selected", tab.dataset.niche === key ? "true" : "false");
+    });
+
+    infoTag.textContent = data.tag;
+    infoTitle.textContent = data.title;
+    infoDesc.textContent = data.desc;
+    infoPayoff.textContent = data.payoff;
+
+    infoSteps.innerHTML = "";
+    data.steps.forEach(function (stepHtml, i) {
+      var li = document.createElement("li");
+      li.className = "flow-step";
+      li.innerHTML = '<span class="step-num">' + (i + 1) + "</span><div>" + stepHtml + "</div>";
+      infoSteps.appendChild(li);
+    });
+
+    nicheVideo.pause();
+    nicheVideo.poster = data.poster;
+    nicheVideoSrc.src = data.video;
+    nicheVideo.load();
+  }
+
+  nicheTabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      switchNiche(tab.dataset.niche);
+    });
+  });
+
 })();
 </script>
 
