@@ -176,6 +176,7 @@
   .badge.new { background: var(--surface-2); color: var(--ink-soft); }
   .badge.qual { background: var(--accent-soft); color: var(--ink); }
   .badge.booked { background: var(--ok-soft); color: var(--ok); }
+  .badge.pending { background: var(--accent-soft); color: var(--ink); }
   .panel p.hint { color: var(--ink-soft); font-size: 0.82rem; margin: 6px 0 14px; }
   .fields { display: grid; gap: 0; border-top: 1px solid var(--line); }
   .field { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.88rem; }
@@ -406,8 +407,8 @@
   <div class="stage">
     <section class="phone" aria-label="Sohbet simülasyonu">
       <div class="phone-head">
-        <span class="avatar" id="av">A</span>
-        <div class="who"><strong id="biz-name">Ada Dil Kursu</strong><span>WhatsApp tarzı sohbet · çevrimiçi</span></div>
+        <span class="avatar" id="av">O</span>
+        <div class="who"><strong id="biz-name">Örnek Dil Okulu</strong><span>WhatsApp tarzı sohbet · çevrimiçi</span></div>
       </div>
       <div class="chat" id="chat" aria-live="polite"></div>
       <div class="chips" id="chips"></div>
@@ -459,14 +460,14 @@
 
       <div class="niche-info" id="niche-info">
         <span class="niche-tag-badge" id="info-tag">EĞİTİM & DİL KURSU</span>
-        <h3 class="niche-title" id="info-title">Ada Dil Kursu • Seviye Tespiti & Danışmanlık</h3>
-        <p class="niche-desc" id="info-desc">İngilizce seviye tespiti randevusu ayarlar, hedef ve şube tercihlerini sınıflandırıp eğitim danışmanına aktarır.</p>
+        <h3 class="niche-title" id="info-title">Örnek Dil Okulu • Seviye Tespiti & Danışmanlık</h3>
+        <p class="niche-desc" id="info-desc">Hedef ve şube tercihlerini sınıflandırır, uygun saatleri sunar ve İngilizce seviye tespiti talebini alır.</p>
         <ul class="flow-steps" id="info-steps">
           <li class="flow-step"><span class="step-num">1</span><div><strong>İhtiyaç Belirleme:</strong> Genel, akademik veya konuşma hedefini öğrenir.</div></li>
           <li class="flow-step"><span class="step-num">2</span><div><strong>Uygun Saat Seçimi:</strong> Hafta içi/sonu müsait kontenjanları sunar.</div></li>
-          <li class="flow-step"><span class="step-num">3</span><div><strong>Onay Kartı:</strong> Şube, tarih ve aday adıyla onay kartı oluşturur.</div></li>
+          <li class="flow-step"><span class="step-num">3</span><div><strong>Okul Onayı:</strong> Şube, tarih ve aday adıyla talebi okul onayı için özetler.</div></li>
         </ul>
-        <div class="payoff-callout" id="info-payoff">✓ Sonuç: Randevu özeti danışman paneline kaydedildi.</div>
+        <div class="payoff-callout" id="info-payoff">✓ Sonuç: Seviye tespiti talebi okul onayına sunuldu.</div>
       </div>
     </div>
   </section>
@@ -510,12 +511,12 @@
 
   var SCEN = {
     kurs: {
-      biz: "Ada Dil Kursu", av: "A",
+      biz: "Örnek Dil Okulu", av: "O",
       fields: [
         ["Kaynak", "WhatsApp"], ["Talep", ""], ["Seviye", ""],
         ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
       ],
-      greet: "Merhaba! 👋 Ada Dil Kursu'na hoş geldiniz. Size nasıl yardımcı olabilirim?",
+      greet: "Merhaba! 👋 Örnek Dil Okuluna hoş geldiniz. Size nasıl yardımcı olabilirim?",
       steps: [
         { key: "Talep", chips: ["İngilizce kursu fiyatları", "Deneme dersi istiyorum", "Kurs programı"],
           reply: function (c) {
@@ -540,20 +541,20 @@
               ? ["Cumartesi 11:00", "Pazar 14:00"]
               : ["Çarşamba 19:00", "Perşembe 19:30"];
           },
-          reply: function (c) { return c + " için yerinizi ayırıyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+          reply: function (c) { return c + " tercihinizi not aldım. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
           reply: function (c) {
-            return "Teşekkürler " + c + "! ✅ Deneme dersiniz ayarlandı. Ders günü saat başında size hatırlatma mesajı göndereceğim. Görüşmek üzere!";
+            return "Teşekkürler " + c + "! Deneme dersi talebiniz alındı ve okul onayına sunuldu.";
           } }
       ]
     },
     klinik: {
-      biz: "Dent Nova Klinik", av: "D",
+      biz: "Örnek Diş Kliniği", av: "D",
       fields: [
         ["Kaynak", "Instagram DM"], ["Talep", ""], ["Hizmet", ""],
         ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
       ],
-      greet: "Merhaba! 🦷 Dent Nova Klinik'e hoş geldiniz. Size nasıl yardımcı olabilirim?",
+      greet: "Merhaba! 🦷 Örnek Diş Kliniğine hoş geldiniz. Size nasıl yardımcı olabilirim?",
       steps: [
         { key: "Talep", chips: ["Randevu almak istiyorum", "Fiyat bilgisi almak istiyorum", "Dişim ağrıyor"],
           reply: function (c) {
@@ -562,7 +563,7 @@
             return "Elbette, hemen randevunuzu planlayalım. Hangi hizmetle ilgileniyorsunuz?";
           } },
         { key: "Hizmet", chips: ["Diş beyazlatma", "İmplant", "Genel kontrol"],
-          reply: function (c) { return c + " için muayene randevusu oluşturalım. Hangi zamanlar size uyar?"; } },
+          reply: function (c) { return c + " için uygun bir muayene saati bulalım. Hangi zamanlar size uyar?"; } },
         { key: "Uygunluk", chips: ["Hafta içi gündüz", "Hafta içi akşam", "Cumartesi"],
           reply: function (c) {
             if (c === "Cumartesi") return "Cumartesi günü için boş saatlerimiz:\nCumartesi 10:30 · Cumartesi 15:00\nHangisi uygun?";
@@ -576,20 +577,20 @@
             if (u === "Hafta içi akşam") return ["Çarşamba 18:30", "Cuma 19:00"];
             return ["Salı 14:00", "Perşembe 11:30"];
           },
-          reply: function (c) { return c + " için randevunuzu oluşturuyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+          reply: function (c) { return c + " tercihinizi not aldım. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
           reply: function (c) {
-            return "Teşekkürler " + c + "! ✅ Randevunuz oluşturuldu. Randevunuzdan bir gün önce hatırlatma mesajı göndereceğim. Sağlıklı günler!";
+            return "Teşekkürler " + c + "! Randevu talebiniz alındı ve klinik onayına sunuldu. Sağlıklı günler!";
           } }
       ]
     },
     emlak: {
-      biz: "Nova Gayrimenkul", av: "N",
+      biz: "Örnek Gayrimenkul", av: "G",
       fields: [
         ["Kaynak", "Web Formu"], ["Talep", ""], ["Bölge", ""],
         ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
       ],
-      greet: "Merhaba! 🏢 Nova Gayrimenkul'e hoş geldiniz. Size nasıl yardımcı olabilirim?",
+      greet: "Merhaba! 🏢 Örnek Gayrimenkule hoş geldiniz. Size nasıl yardımcı olabilirim?",
       steps: [
         { key: "Talep", chips: ["Satılık 3+1 daire", "Kiralık daire", "Fiyat değerlendirmesi & ekspertiz"],
           reply: function (c) {
@@ -616,18 +617,18 @@
             if (u === "Pazar") return ["Pazar 13:00", "Pazar 15:30"];
             return ["Cumartesi 14:00", "Cumartesi 16:30"];
           },
-          reply: function (c) { return c + " randevusu için yerinizi ayırtıyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+          reply: function (c) { return c + " tercihinizi not aldım. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
-          reply: function (c) { return "Teşekkürler " + c + "! ✅ Bölge danışmanımız randevu saatinde sizi adreste karşılayacak. Bilgiler takvime işlendi."; } }
+          reply: function (c) { return "Teşekkürler " + c + "! Randevu talebiniz alındı. Onay sonrası bölge danışmanımız sizi adreste karşılayacak."; } }
       ]
     },
     salon: {
-      biz: "Aura Saç & Güzellik", av: "S",
+      biz: "Örnek Saç & Güzellik", av: "K",
       fields: [
         ["Kaynak", "WhatsApp"], ["Hizmet", ""], ["Uzman", ""],
         ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
       ],
-      greet: "Merhaba! ✨ Aura Saç & Güzellik salonumuza hoş geldiniz. Hangi hizmet için randevu almak istersiniz?",
+      greet: "Merhaba! ✨ Örnek Saç & Güzellik salonumuza hoş geldiniz. Hangi hizmet için randevu almak istersiniz?",
       steps: [
         { key: "Hizmet", chips: ["Saç Kesimi & Bakım", "Renklendirme / Balyaj", "Manikür & Pedikür"],
           reply: function (c) { return c + " işlemi için uzman ekibimizle yardımcı olmaktan mutluluk duyarız. Tercih ettiğiniz özel bir uzmanımız var mı?"; } },
@@ -647,18 +648,18 @@
               ? ["Cuma 14:00", "Cuma 16:30"]
               : ["Cumartesi 11:00", "Cumartesi 15:30"];
           },
-          reply: function (c) { return c + " randevunuzu ayırıyorum. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+          reply: function (c) { return c + " tercihinizi not aldım. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
-          reply: function (c) { return "Harika " + c + "! ✅ Randevunuz salon takvimine işlendi. Randevu gününde görüşmek üzere!"; } }
+          reply: function (c) { return "Harika " + c + "! Randevu talebiniz alındı ve salon onayına sunuldu."; } }
       ]
     },
     restoran: {
-      biz: "Bistro Lumière", av: "B",
+      biz: "Örnek Bistro", av: "B",
       fields: [
         ["Kaynak", "Instagram"], ["Tarih", ""], ["Kişi Sayısı", ""],
         ["Alan", ""], ["Saat", ""], ["Ad", ""]
       ],
-      greet: "İyi günler! 🍷 Bistro Lumière'e hoş geldiniz. Bu akşam veya hafta sonu için masa ayırtmak ister misiniz?",
+      greet: "İyi günler! 🍷 Örnek Bistroya hoş geldiniz. Bu akşam veya hafta sonu için masa ayırtmak ister misiniz?",
       steps: [
         { key: "Tarih", chips: ["Bu akşam", "Yarın akşam", "Cumartesi"],
           reply: function (c) { return c + " için kaç kişilik bir masa hazırlayalım?"; } },
@@ -666,21 +667,21 @@
           reply: function (c) { return c + " için salonumuzda ve terasımızda yerimiz var. Hangi alanı tercih edersiniz?"; } },
         { key: "Alan", chips: ["Teras Masa", "İç Salon", "Fark etmez"],
           reply: function (c, ans) {
-            return c + " tercihinize göre " + (ans["Tarih"] || "seçtiğiniz gün") + " için uygun saatlerimiz: 19:30 veya 20:30. Hangisini rezerve edelim?";
+            return c + " tercihinize göre " + (ans["Tarih"] || "seçtiğiniz gün") + " için uygun saatlerimiz: 19:30 veya 20:30. Hangisi size uyar?";
           } },
         { key: "Saat", chips: ["19:30", "20:30"],
-          reply: function (c) { return c + " rezervasyonu için son olarak adınızı ve soyadınızı alabilir miyim?"; } },
+          reply: function (c) { return c + " tercihinizi not aldım. Son olarak adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
-          reply: function (c) { return "Mükemmel " + c + "! ✅ Masanız rezerve edildi. Kodunuz: #BL-8420. Görüşmek üzere!"; } }
+          reply: function (c) { return "Mükemmel " + c + "! Rezervasyon talebiniz alındı ve onay bekliyor. Talep kodunuz: #OB-8420. Teşekkür ederiz!"; } }
       ]
     },
     oto: {
-      biz: "Mobilis Oto Servis", av: "M",
+      biz: "Örnek Araç Servisi", av: "S",
       fields: [
         ["Kaynak", "WhatsApp"], ["Talep", ""], ["Araç", ""],
         ["Uygunluk", ""], ["Randevu", ""], ["Ad", ""]
       ],
-      greet: "Merhaba! 🔧 Mobilis Oto Servis'e hoş geldiniz. Aracınız için periyodik bakım veya servis kabul kaydı mı oluşturmak istersiniz?",
+      greet: "Merhaba! 🔧 Örnek Araç Servisine hoş geldiniz. Aracınız için periyodik bakım veya servis kabul kaydı mı oluşturmak istersiniz?",
       steps: [
         { key: "Talep", chips: ["Periyodik Bakım", "Fren & Balata Kontrolü", "Arıza Tespiti"],
           reply: function (c) { return c + " için servis randevusu planlayalım. Aracınızın marka ve modelini öğrenebilir miyim?"; } },
@@ -707,7 +708,7 @@
           },
           reply: function (c) { return c + " servis kabulü için adınızı ve soyadınızı alabilir miyim?"; } },
         { key: "Ad", chips: [], free: true,
-          reply: function (c) { return "Teşekkürler " + c + "! ✅ Servis kabul randevunuz oluşturuldu. Randevu saatinde servis danışmanımız sizi bekliyor olacak."; } }
+          reply: function (c) { return "Teşekkürler " + c + "! Randevu talebiniz alındı ve servis onayına sunuldu."; } }
       ]
     }
   };
@@ -863,7 +864,7 @@
     botSay(replyText, function () {
       if (isLast) {
         state.done = true;
-        setBadge("booked", "Randevu alındı");
+        setBadge("pending", "Onay bekliyor");
         setChips([]);
         return;
       }
@@ -890,79 +891,79 @@
   var NICHE_DATA = {
     kurs: {
       tag: "EĞİTİM & DİL KURSU",
-      title: "Ada Dil Kursu • Seviye Tespiti & Danışmanlık",
-      desc: "İngilizce seviye tespiti randevusu ayarlar, hedef ve şube tercihlerini sınıflandırıp eğitim danışmanına aktarır.",
+      title: "Örnek Dil Okulu • Seviye Tespiti & Danışmanlık",
+      desc: "Hedef ve şube tercihlerini sınıflandırır, uygun saatleri sunar ve İngilizce seviye tespiti talebini alır.",
       steps: [
         "<strong>İhtiyaç Belirleme:</strong> Genel, akademik veya konuşma hedefini öğrenir.",
         "<strong>Uygun Saat Seçimi:</strong> Hafta içi/sonu müsait kontenjanları sunar.",
-        "<strong>Onay Kartı:</strong> Şube, tarih ve aday adıyla onay kartı oluşturur."
+        "<strong>Okul Onayı:</strong> Şube, tarih ve aday adıyla talebi okul onayı için özetler."
       ],
-      payoff: "✓ Sonuç: Randevu özeti danışman paneline kaydedildi.",
+      payoff: "✓ Sonuç: Seviye tespiti talebi okul onayına sunuldu.",
       video: "assets/videos/video_kurs.mp4",
       poster: "assets/posters/poster_kurs.jpg"
     },
     klinik: {
       tag: "KLİNİK & DİŞ SAĞLIĞI",
-      title: "Dent Nova Klinik • Muayene Randevusu",
-      desc: "Hasta talebini alır, hekim takvimine göre uygun saatte randevu oluşturur.",
+      title: "Örnek Diş Kliniği • Muayene Randevusu",
+      desc: "Hasta talebini alır, hekim takvimine göre uygun saatleri sunar ve talebi klinik onayı için özetler.",
       steps: [
         "<strong>Talep Belirleme:</strong> Muayene veya bakım ihtiyacını netleştirir.",
         "<strong>Hekim Takvimi:</strong> Tercih edilen gün ve saate göre uygun seansı eşler.",
-        "<strong>Klinik Bildirimi:</strong> Randevu kodunu hastaya iletip hekim paneline işler."
+        "<strong>Klinik Onayı:</strong> Talebi, klinik ekibinin onayı için özetler."
       ],
-      payoff: "✓ Sonuç: Randevu talebi hekim paneline iletildi.",
+      payoff: "✓ Sonuç: Randevu talebi klinik onayına sunuldu.",
       video: "assets/videos/video_klinik.mp4",
       poster: "assets/posters/poster_klinik.jpg"
     },
     emlak: {
       tag: "GAYRİMENKUL & EMLAK",
-      title: "Nova Gayrimenkul • Portföy & Yer Gösterme",
-      desc: "Bölge, oda sayısı ve site kriterlerini toplar; daire görselini sunup yer gösterme ziyareti planlar.",
+      title: "Örnek Gayrimenkul • Portföy & Yer Gösterme",
+      desc: "Bölge, oda sayısı ve site kriterlerini toplar; daire görselini sunar ve yer gösterme talebini alır.",
       steps: [
         "<strong>Kriter Belirleme:</strong> Semt ve oda tercihlerini filtreler.",
         "<strong>Görsel Portföy:</strong> Kriterlere uyan ilan kartını görseliyle iletir.",
-        "<strong>Danışman Eşleşmesi:</strong> Yer gösterme saatini bölge danışmanına bağlar."
+        "<strong>Danışman Onayı:</strong> Talebi, bölge danışmanının onayı için özetler."
       ],
-      payoff: "✓ Sonuç: Yer gösterme randevusu danışmana iletildi.",
+      payoff: "✓ Sonuç: Yer gösterme talebi danışman onayına sunuldu.",
       video: "assets/videos/video_emlak.mp4",
       poster: "assets/posters/poster_emlak.jpg"
     },
     salon: {
       tag: "GÜZELLİK & KUAFÖR SALONU",
-      title: "Aura Saç & Güzellik • Takip Mesajı & Randevu",
-      desc: "Yanıtsız kalan talepleri ertesi gün nazikçe takip ederek randevuya dönüştürür.",
+      title: "Örnek Saç & Güzellik • Takip Mesajı & Randevu",
+      desc: "Yanıtsız kalan adayları ertesi gün nazikçe takip ederek randevu talebine dönüştürür.",
       steps: [
         "<strong>Hizmet Karşılama:</strong> Kesim, renklendirme veya bakım talebini alır.",
         "<strong>Takip Mesajı:</strong> Yanıtsız kalan adaylara ertesi gün boş saatleri hatırlatır.",
-        "<strong>Takvim Kaydı:</strong> Teyit edilen randevuyu salon ajandasına ekler."
+        "<strong>Salon Onayı:</strong> Talebi, salon ekibinin onayı için özetler."
       ],
-      payoff: "✓ Sonuç: Takip mesajıyla randevu takvime eklendi.",
+      payoff: "✓ Sonuç: Takip mesajıyla gelen randevu talebi salon onayına sunuldu.",
       video: "assets/videos/video_salon.mp4",
       poster: "assets/posters/poster_salon.jpg"
     },
     restoran: {
       tag: "RESTORAN & GASTRONOMİ",
-      title: "Bistro Lumière • Masa Rezervasyonu & Menü",
-      desc: "Kişi sayısı, alan tercihi ve saate göre masa rezervasyonu yapar; gelmeden önce şef menüsünü sunar.",
+      title: "Örnek Bistro • Masa Rezervasyonu & Menü",
+      desc: "Kişi sayısı, alan tercihi ve saate göre rezervasyon talebini alır; gelmeden önce şef menüsünü sunar.",
       steps: [
         "<strong>Masa Uygunluğu:</strong> Kişi sayısı ve teras/salon tercihini teyit eder.",
-        "<strong>Rezervasyon Kartı:</strong> Saat ve masa numarası içeren onay kartı iletir.",
+        "<strong>Talep Kartı:</strong> Tarih, saat ve kişi sayısını özet kartla iletir.",
         "<strong>Menü Gösterimi:</strong> Müşteri isteğine göre tadım menüsünü paylaşır."
       ],
-      payoff: "✓ Sonuç: Rezervasyon kodu oluşturuldu ve takvime kaydedildi.",
+      payoff: "✓ Sonuç: Rezervasyon talebi restoran onayına sunuldu.",
       video: "assets/videos/video_restoran.mp4",
       poster: "assets/posters/poster_restoran.jpg"
     },
     oto: {
       tag: "OTO SERVİS & BAKIM",
-      title: "Mobilis Oto Servis • Periyodik Bakım",
-      desc: "Araç marka, model ve kilometre bilgilerini alarak atölye kabul randevusu oluşturur.",
+      title: "Örnek Araç Servisi • Periyodik Bakım",
+      desc: "Araç marka, model ve kilometre bilgilerini alır; atölye kabul talebini servis onayı için özetler.",
       steps: [
         "<strong>Araç Bilgisi:</strong> Model ve kilometreye göre bakım kapsamını belirler.",
         "<strong>Atölye Kabulü:</strong> Servisin müsait kabul saatlerini filtreler.",
-        "<strong>Kabul Bildirimi:</strong> Randevu kodunu müşteriye ve servis paneline iletir."
+        "<strong>Servis Onayı:</strong> Talebi, servis ekibinin onayı için özetler."
       ],
-      payoff: "✓ Sonuç: Servis randevusu atölye planına eklendi.",
+      payoff: "✓ Sonuç: Randevu talebi servis onayına sunuldu.",
       video: "assets/videos/video_oto.mp4",
       poster: "assets/posters/poster_oto.jpg"
     },
@@ -973,9 +974,9 @@
       steps: [
         "<strong>Branş Seçimi:</strong> Reformer veya pilates amacını sınıflandırır.",
         "<strong>Seans Saatleri:</strong> Eğitmenin müsait seans aralıklarını listeler.",
-        "<strong>Eğitmen Takvimi:</strong> Katılımcı profilini eğitmen paneline kaydeder."
+        "<strong>Eğitmen Takvimi:</strong> Katılımcı profilini eğitmenin onayı için özetler."
       ],
-      payoff: "✓ Sonuç: Deneme seansı eğitmen ajandasına işlendi.",
+      payoff: "✓ Sonuç: Deneme seansı talebi eğitmen onayına sunuldu.",
       video: "assets/videos/video_pilates.mp4",
       poster: "assets/posters/poster_pilates.jpg"
     },
@@ -986,22 +987,22 @@
       steps: [
         "<strong>Sipariş Sorgusu:</strong> Kargo takip kodunu entegrasyondan sorgular.",
         "<strong>Kurye Notu:</strong> Resepsiyona bırakma veya komşu teslimat notu alır.",
-        "<strong>Müşteri Teyidi:</strong> Teslimat detaylarını panele kaydeder."
+        "<strong>Müşteri Teyidi:</strong> Teslimat detaylarını ekibin kontrolü için özetler."
       ],
-      payoff: "✓ Sonuç: Teslimat notu kurye sistemine iletildi.",
+      payoff: "✓ Sonuç: Teslimat notu ekip kontrolüne sunuldu.",
       video: "assets/videos/video_eticaret.mp4",
       poster: "assets/posters/poster_eticaret.jpg"
     },
     danismanlik: {
       tag: "KURUMSAL AI ASİSTANI",
       title: "Meta Grup AI • Talep Nitelendirme",
-      desc: "Müşteri adayının hedeflerini, talep hacmini ve CRM altyapısını sınıflandırıp ön görüşme planlar.",
+      desc: "Müşteri adayının hedeflerini, talep hacmini ve CRM altyapısını sınıflandırır ve ön görüşme talebini kaydeder.",
       steps: [
         "<strong>Hedef Analizi:</strong> Hedef, talep hacmi ve CRM altyapısını sorgular.",
-        "<strong>Toplantı Planlama:</strong> Danışmanın uygun saatlerine ön görüşme ayarlar.",
-        "<strong>Ekip Bildirimi:</strong> Nitelikli görüşme kaydını satış ekibine aktarır."
+        "<strong>Toplantı Planlama:</strong> İletişim e-postasını alır ve ön görüşme talebini kaydeder.",
+        "<strong>Görüşme Kartı:</strong> Ad, kurum ve görüşme saatini tek kartta özetler."
       ],
-      payoff: "✓ Sonuç: Nitelikli talep özeti CRM paneline aktarıldı.",
+      payoff: "✓ Sonuç: Ön görüşme kaydı hazır; bu demoda takvim daveti gönderilmez.",
       video: "assets/videos/video_danismanlik.mp4",
       poster: "assets/posters/poster_danismanlik.jpg"
     }
